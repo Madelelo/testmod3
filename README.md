@@ -1,86 +1,109 @@
-# module 3 individual assignment
+# Module 3 individual assignment #
 
-Submitted by: TODO
+Submitted by: x500@umn.edu
 
-Heroku URL: TODO
+Heroku URL: heroku_url_to_your_app
 
-## overview
+## Overview #
 
 Your goal is to understand and extend a skeleton app that connects ReactJS with Express.
 
-## getting started
+## Getting started ##
 
-### run the app
+### Run the app ###
 
-First, start the app. To do this, run
+First, we need to install our dependencies. To do this, run
 
     npm install
 
-To run a development server, run:
+Let's confirm that everything is working by starting our server.
+To start the development server go to the base directory of your
+project and run:
 
     npm start
 
-(npm start must be run from the root directory of the project, *not* in /client).
+This should automatically open a browser window to
+`http://localhost:3000`. If it didn't, simply
+navigate to it directly.
 
-npm start will automatically open a browser window to
+### Deploy to Heroku ###
 
-    http://localhost:3000
+Now that we know it is working locally, let's deploy it to Heroku.
+You should be able to follow the normal deploy process.
 
-### push the app to heroku
+Once you have successfully deployed the app. Go to its url and
+confirm that it looks like you would expect.
 
-Create a heroku app to host this code, make sure you can see the app.
 
-### understand the code layout
+### Understand the code layout ###
 
-**server**
+#### Server ####
 
-First, look around `/server`. This should be familiar.  It is a simple express.js app, not much more than the result of running the express generator.  `app.js` is the main process; it is started by running `bin/www`, which contains some configuration.
+First, take a look around `/server`. The layout should be familiar.  It is a simple express.js app, not much more than the result of running the express generator. The entry point is `app.js`. The role of the server in single-page applications (SPA) is to provide data for the client.
 
-Try putting this in your browser:
+Restart you local server and try pointing your browser to this URL:
+
+    http://localhost:3000/api/movies
+
+Do you see anything? I don't, give this URL a try:
 
     http://localhost:3001/api/movies
 
-That URL and response is defined in `/server/routes/api.js`
+See something now? Good.
 
-**client**
+That URL and response is defined in `/server/routes/api.js`.
 
-Now, look around `/client`. This is a skeleton ReactJS application, not much more than the result of running [create-react-app](https://github.com/facebookincubator/create-react-app).
+But what is going on here? Our server is running on port 3000 so what gives? This gets into some of the behind-the-scenes magic of the React development environment. `npm start` actually started two servers. One runs on port 3000 and the other on port 3001. The server on port 3000 handles dynamically loading changes to react. The server on port 3001 is what you might think of as the "real" server, but it doesn't know how to build our react app, which would make it a pain to use when we are making frequent changes to it.
 
-**client + server = single page application**
+If you want to run this server on its own you can run `server/bin/www` from the base of the project directory.
 
-Client is the html, server has API endpoints that return JSON. This is the basic architecture of a single-page application (SPA).
+As a developer, you will typically interact with the port 3000 app. This setup is very similar to the one described here: <https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/>
 
-Behind the scenes, npm start will start two development servers, one for react (port 3000) and one for express (port 3001). The react server will proxy requests to express. As a developer, you will typically interact with the port 3000 app. This setup is very similar to the one described here: <https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/>
 
-### make changes, view the output
+#### Client ####
 
-To learn more about what's going on here, make experimental changes to files (e.g., MainLayout.js or Root.js), and watch the changes affect what's shown in the browser.
+Now, take a look around `/client`. This is a skeleton ReactJS
+application, initially created by running
+[create-react-app](https://github.com/facebookincubator/create-react-app)
+with some minor modifications.
 
-### understand that the app uses react-router
 
-See index.js, which defines the routes, using [react-router](https://github.com/ReactTraining/react-router).
+#### client + server = single page application ####
 
-See <https://github.com/ReactTraining/react-router/blob/master/docs/Introduction.md> for more docs on exactly what's going on here. The main point to understand is that client-side code is swapping html templates in and out as the user clicks links.
+The client handles all of the html, while the server provides data through API endpoints that return JSON. This is the basic architecture of a single-page application (SPA).
+
+### Make changes, see what happens ###
+
+To learn more about what's going on here, make experimental changes to files in the client (e.g., src/MainLayout.js or src/Root.js), and watch the changes affect what's shown in the browser.
+
+If you are using `npm start` your changes should appear as soon as you save your file.
+
+### React-router ###
+Go to the main page of our app. There should be a link called "a link to foo". Click this link and watch the terminal running your server carefully. Did you see anything change? You shouldn't have. We went to `localhost:3000/foo`, but the server didn't record any activity. This is because react is doing all the routing client side and doesn't touch the server for the new webpage.
+
+To see how this is done go to `client/src/index.js`, which defines the routes, using [react-router](https://github.com/ReactTraining/react-router).
+
+See the [react-router introduction docs](https://github.com/ReactTraining/react-router/blob/master/docs/Introduction.md) for more information on exactly what's going on here. The main point to understand is that client-side code is swapping html templates in and out as the user clicks links.
 
 Here's another good guide: <https://css-tricks.com/learning-react-router/>
 
-### understand that the app makes an API call to express
+### Making an API call to express ###
+See the method `componentDidMount` in `client/src/Root.js` for an example of how to fetch data from an API call to express. (What's that componentDidMount hook? See <https://facebook.github.io/react/docs/react-component.html>)
 
-See the method `componentDidMount` in `Root.js` for an example of how to fetch data from an API call to express. (What's that componentDidMount hook? See <https://facebook.github.io/react/docs/react-component.html>)
-
-The code in Root.js code also demonstrates passing data between components, as discussed in <https://css-tricks.com/learning-react-container-components/>
+The code in `Root.js` code also demonstrates passing data between components, as discussed in <https://css-tricks.com/learning-react-container-components/>
 
 
-## assignment tasks
+## Assignment ##
 
 Your task is to create very tiny movie site by changing code in /client. You should not have to change code in other directories (e.g., /server) to complete this assignment.
 
-Background: The express server has two routes (/api/movies and /api/movies/:movieId) that return JSON to the client with movie information. There are only 12 movies in this dataset. You should be able to see this api by visiting, e.g.,
+### Background ###
+The express server has two routes (/api/movies and /api/movies/:movieId) that return JSON to the client with movie information. There are only 12 movies in this dataset. You should be able to see this api by visiting, e.g.,
 
     http://localhost:3001/api/movies
     http://localhost:3001/api/movies/122904
 
-Your tasks:
+### Your tasks ###
 
 0. Change the application's header and style.  Get rid of the current style, react icon, and content, and put in a simple header and styling that makes this look like a custom movie site.  No need for fancy style.
 
