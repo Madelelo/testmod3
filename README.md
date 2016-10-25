@@ -53,7 +53,7 @@ See something now? Good.
 
 That URL and response is defined in `/server/routes/api.js`.
 
-But what is going on here? Our server is running on port 3000 so what gives? This gets into some of the behind-the-scenes magic of our React development environment. `npm start` actually started two web servers. One runs on port 3000 (react development server) and the other on port 3001 (express). The react server on port 3000 is provided to make react development easy by serving an app directly from the contents of the `client/src` directory, even though that source code is not browser-ready without a build step (it contains ES2015 javascript syntax). The server on port 3001 acts as an API, with URLs that respond with JSON.  The react development server on 3000 is configured to proxy API requests to the express server on 3001.
+But what is going on here? Our server is running on port 3000 so what gives? This gets into some of the behind-the-scenes magic of our React development environment. `npm start` actually started two web servers. One runs on port 3000 (react development server) and the other on port 3001 (express). The react server on port 3000 is provided to make react development easy by serving an app directly from the contents of the `client/src` directory, even though that source code is not browser-ready without a build step. The react development server on 3000 is configured to proxy RESTful API requests to the express server on 3001.
 
 As a developer, you will typically interact with the port 3000 app. This setup is very similar to the one described here: <https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/>
 
