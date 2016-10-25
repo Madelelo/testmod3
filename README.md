@@ -115,7 +115,7 @@ The express server has two routes (/api/movies and /api/movies/:movieId) that re
     * average rating
     * link to the "movie details page" (see next item)
 
-Remember, this is very similar to what `Root.js` is currently doing, the main additional step is to iterate over a list, rather than rendering a single object.  See <https://facebook.github.io/react/docs/lists-and-keys.html#rendering-multiple-components>
+    Remember, this is very similar to what `Root.js` is currently doing, the main additional step is to iterate over a list, rather than rendering a single object.  See <https://facebook.github.io/react/docs/lists-and-keys.html#rendering-multiple-components>
 
 2. Add a route to the react app (`/movies/:movieId`) that shows a single movie (e.g., a `Movie` component) and its details, including:
 
