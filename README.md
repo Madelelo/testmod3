@@ -53,9 +53,7 @@ See something now? Good.
 
 That URL and response is defined in `/server/routes/api.js`.
 
-But what is going on here? Our server is running on port 3000 so what gives? This gets into some of the behind-the-scenes magic of the React development environment. `npm start` actually started two servers. One runs on port 3000 and the other on port 3001. The server on port 3000 handles dynamically loading changes to react. The server on port 3001 is what you might think of as the "real" server, but it doesn't know how to build our react app, which would make it a pain to use when we are making frequent changes to it.
-
-If you want to run this server on its own you can run `server/bin/www` from the base of the project directory.
+But what is going on here? Our server is running on port 3000 so what gives? This gets into some of the behind-the-scenes magic of our React development environment. `npm start` actually started two web servers. One runs on port 3000 (react development server) and the other on port 3001 (express). The react server on port 3000 is provided to make react development easy by serving an app directly from the contents of the `client/src` directory, even though that source code is not browser-ready without a build step (it contains ES2015 javascript syntax). The server on port 3001 acts as an API, with URLs that respond with JSON.  The react development server on 3000 is configured to proxy API requests to the express server on 3001.
 
 As a developer, you will typically interact with the port 3000 app. This setup is very similar to the one described here: <https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/>
 
@@ -79,6 +77,7 @@ To learn more about what's going on here, make experimental changes to files in 
 If you are using `npm start` your changes should appear as soon as you save your file.
 
 ### React-router ###
+
 Go to the main page of our app. There should be a link called "a link to foo". Click this link and watch the terminal running your server carefully. Did you see anything change? You shouldn't have. We went to `localhost:3000/foo`, but the server didn't record any activity. This is because react is doing all the routing client side and doesn't touch the server for the new webpage.
 
 To see how this is done go to `client/src/index.js`, which defines the routes, using [react-router](https://github.com/ReactTraining/react-router).
@@ -88,6 +87,7 @@ See the [react-router introduction docs](https://github.com/ReactTraining/react-
 Here's another good guide: <https://css-tricks.com/learning-react-router/>
 
 ### Making an API call to express ###
+
 See the method `componentDidMount` in `client/src/Root.js` for an example of how to fetch data from an API call to express. (What's that componentDidMount hook? See <https://facebook.github.io/react/docs/react-component.html>)
 
 The code in `Root.js` code also demonstrates passing data between components, as discussed in <https://css-tricks.com/learning-react-container-components/>
@@ -98,6 +98,7 @@ The code in `Root.js` code also demonstrates passing data between components, as
 Your task is to create very tiny movie site by changing code in /client. You should not have to change code in other directories (e.g., /server) to complete this assignment.
 
 ### Background ###
+
 The express server has two routes (/api/movies and /api/movies/:movieId) that return JSON to the client with movie information. There are only 12 movies in this dataset. You should be able to see this api by visiting, e.g.,
 
     http://localhost:3001/api/movies
