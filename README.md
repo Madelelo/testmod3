@@ -126,6 +126,6 @@ The express server has two routes (/api/movies and /api/movies/:movieId) that re
     * plotSummary
     * a link back to the home page
 
-(if you want to add an image for fun, those are hosted at TMDb -- e.g., <http://image.tmdb.org/t/p/original/gpaOYwHCF2O5PM5sqFpfzKWuQvb.jpg>)
+    (if you want to add an image for fun, those are hosted at TMDb -- e.g., <http://image.tmdb.org/t/p/original/gpaOYwHCF2O5PM5sqFpfzKWuQvb.jpg>)
 
 3. Push your amazing movie site to heroku, and fill out the README above so that we can give you a checkmark.
